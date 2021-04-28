@@ -2,20 +2,20 @@
 ## Example
 ### Find Uid
 ```javascript
-var toolfb = require("facebook-tools-ntk");
+var toolfb = require("fb-tools");
 var id = await toolfb.findUid("https://facebook.com/ntkhang.9831");
 console.log(id);
 ```
 > If fails
 ```javascript
-var toolfb = require("facebook-tools-ntk");
+var toolfb = require("fb-tools");
 var id = await toolfb.findUid("https://facebook.com/ntkhang.9831");
 id.then(function(result) {
    console.log(result)});
 ```
 ### Download video
 ```javascript
-var toolfb = require("facebook-tools-ntk");
+var toolfb = require("fb-tools");
 var videolink = await toolfb.getVideoUrl("https://m.facebook.com/watch/?v=214784840422650");
 console.log(videolink);
 /*{
