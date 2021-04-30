@@ -1,4 +1,6 @@
 # Facebook tools ntk
+#Credits:
+[Kaysil](https://github.com/Kaysil/facebook-tools)
 ## Example
 ### Find Uid
 ```javascript
