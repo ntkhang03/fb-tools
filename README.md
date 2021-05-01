@@ -30,4 +30,4 @@ console.log(videolink.hd);
 ```
 > If fails, similar Find Uid
 # Author:
-[NTKhang](https:facebook.com/ntkhang.9831)
+[NTKhang](https://github.com/ntkhanggggg)
