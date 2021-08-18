@@ -1,0 +1,29 @@
+{
+  "name": "fb-tools",
+  "version": "2.0.3",
+  "description": "Download the video and find the Facebook Uid using the profile link",
+  "main": "index.js",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.6",
+    "request-promise": "^4.2.6",
+    "npm": "^7.11.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ntkhang03/facebook-tools-ntk.git"
+  },
+  "keywords": [
+    "fb-tools-ntk",
+    "fb-tools"
+  ],
+  "author": "NTKhang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ntkhang03/facebook-tools-ntk/issues"
+  },
+  "homepage": "https://github.com/ntkhang03/facebook-tools-ntk#readme"
+}
