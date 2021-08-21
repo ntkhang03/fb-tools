@@ -1,4 +1,6 @@
-const request = require("request");
+const got = require("got");
+const FormData = require('form-data');
+const form = new FormData();
 const cheerio = require("cheerio");
 
 /**
@@ -7,7 +9,7 @@ const cheerio = require("cheerio");
  * @returns {string} raw video url
  */
  
- // Change request-promise -> request
+ // Change request-promise -> got + form-data
  
 async function getVideoUrl(url) {
 	if (typeof url !== "string") throw new Error("URL must be string");
@@ -35,21 +37,23 @@ async function getVideoUrl(url) {
 	if (url.protocol !== "https:" && url.protocol !== "http:") throw new Error("Invalid protocol");
 	if (url.protocol !== "http:" && url.protocol !== "https:") throw new Error("Invalid protocol");
 	
-	let formPush = {
-	  url: "https://fbdown.net/download.php",
-	  formData: {
-	    URLz: url
-	  }
-	};
+	form.append('URLz', url.toString());
 
 	try {
-		await got.post(formPush, function(err, response, html) {
-		  var $ = cheerio.load(response);
-		});
+		let response = (await got.post("https://fbdown.net/download.php", {
+		  body: form
+		})).body;
 	} catch (e) {
 		throw new Error("ERR: Error when trying to request or maybe link is invalid");
 	}
 
+
+	try {
+		let $ = cheerio.load(response);
+	} catch (e) {
+		throw new Error("ERR: Error when trying to load response");
+	}
+    
 	let obj = {
 		sd: $("#sdlink").attr("href"),
 		hd: $("#hdlink").attr("href")
