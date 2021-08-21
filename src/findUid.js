@@ -1,10 +1,8 @@
-const got = require("got");
-const FormData = require('form-data');
-const form = new FormData();
+const request = require("request");
 const cheerio = require("cheerio");
 
 // Find UID by Facebook profile URL
-// Change request-promise -> got + form-data
+// Change request-promise -> request
  
 async function findUid (url) {
 	if (typeof url !== "string") throw new Error("URL must be string");
@@ -30,21 +28,20 @@ async function findUid (url) {
 	if (url.protocol !== "https:" && url.protocol !== "http:") throw new Error("Invalid protocol");
 	if (url.protocol !== "http:" && url.protocol !== "https:") throw new Error("Invalid protocol");
 	
-	form.append('linkCheckUid', url);
+	let formPush = {
+	  url: "https://id.atpsoftware.vn",
+	  formData: {
+	    linkCheckUid: url
+	  }
+	};
 
 	try {
-		let response = (await got.post("https://id.atpsoftware.vn", {
-		  body: form
-		})).body;
+		await request.post(formPush, function(err, response, html) {
+		  var $ = cheerio.load(html);
+		});
 	} catch (e) {
 		throw new Error("ERR: Error when trying to get response");
-	}
-
-	try {
-		let $ = cheerio.load(response);
-	} catch (e) {
-		throw new Error("ERR: Error when loading data");
-	}
+	};
 
 	return $("#menu1 > textarea.mt-4.w-75").text();
 }

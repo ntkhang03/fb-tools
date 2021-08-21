@@ -1,12 +1,11 @@
 {
   "name": "fb-tools",
-  "version": "2.0.6",
+  "version": "2.0.8",
   "description": "Download the video and find the Facebook Uid using the profile link",
   "main": "index.js",
   "dependencies": {
     "cheerio": "^1.0.0-rc.10",
-    "form-data": "^4.0.0",
-    "got": "^11.8.2"
+    "request": "^2.88.2"
   },
   "devDependencies": {},
   "scripts": {
