@@ -31,19 +31,25 @@ async function findUid (url) {
 	if (url.protocol !== "http:" && url.protocol !== "https:") throw new Error("Invalid protocol");
 	
 	form.append('linkCheckUid', url.toString());
-
+	
+	let response;
+	
 	try {
-		let response = (await got.post("https://id.atpsoftware.vn", {
+	  response = (await got.post("https://id.atpsoftware.vn", {
 		  body: form
 		})).body;
 	} catch (e) {
-		throw new Error("ERR: Error when trying to get response");
+	  console.log(e);
+		//throw new Error("ERR: Error when trying to get response");
 	}
-
+	
+	let $;
+	
 	try {
-		let $ = cheerio.load(response);
+	  $ = cheerio.load(response);
 	} catch (e) {
-		throw new Error("ERR: Error when loading data");
+	  console.log(e);
+		//throw new Error("ERR: Error when loading data");
 	}
 
 	return $("#menu1 > textarea.mt-4.w-75").text();

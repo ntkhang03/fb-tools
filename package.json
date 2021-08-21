@@ -1,6 +1,6 @@
 {
   "name": "fb-tools",
-  "version": "2.0.9",
+  "version": "2.0.10",
   "description": "Download the video and find the Facebook Uid using the profile link",
   "main": "index.js",
   "dependencies": {

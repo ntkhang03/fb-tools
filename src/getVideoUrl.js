@@ -38,20 +38,25 @@ async function getVideoUrl(url) {
 	if (url.protocol !== "http:" && url.protocol !== "https:") throw new Error("Invalid protocol");
 	
 	form.append('URLz', url.toString());
+	
+	let response;
 
 	try {
-		let response = (await got.post("https://fbdown.net/download.php", {
+		response = (await got.post("https://fbdown.net/download.php", {
 		  body: form
 		})).body;
 	} catch (e) {
-		throw new Error("ERR: Error when trying to request or maybe link is invalid");
+	  console.log(e);
+		//throw new Error("ERR: Error when trying to request or maybe link is invalid");
 	}
-
+	
+	let $;
 
 	try {
-		let $ = cheerio.load(response);
+		$ = cheerio.load(response);
 	} catch (e) {
-		throw new Error("ERR: Error when trying to load response");
+	  console.log(e);
+		//throw new Error("ERR: Error when trying to load response");
 	}
     
 	let obj = {
