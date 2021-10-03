@@ -42,7 +42,7 @@ async function getVideoUrl(url) {
 	let response;
 
 	try {
-		response = (await got.post("https://fbdown.net/download.php", {
+		response = (await got.post("https://fdown.net/download.php", {
 		  body: form
 		})).body;
 	} catch (e) {
