@@ -39,17 +39,15 @@ async function findUid (url) {
 		  body: form
 		})).body;
 	} catch (e) {
-	  console.log(e);
-		//throw new Error("ERR: Error when trying to get response");
+	  throw new Error("ERR: Error when trying to get response");
 	}
 	
 	let $;
 	
 	try {
-	  $ = cheerio.load(response);
+	  $ = cheerio.load(response.toString());
 	} catch (e) {
-	  console.log(e);
-		//throw new Error("ERR: Error when loading data");
+	  throw new Error("ERR: Error when loading data");
 	}
 
 	return $("#menu1 > textarea.mt-4.w-75").text();
