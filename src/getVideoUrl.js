@@ -36,7 +36,7 @@ async function getVideoUrl(url) {
 	let response;
 
 	try {
-		response = await got.post("https://fdown.net/download.php", {
+		response = await request.post("https://fdown.net/download.php", {
 		  formData: {
 		    URLz: url.toString()
 		  }
