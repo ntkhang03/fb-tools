@@ -1,6 +1,4 @@
-const got = require("got");
-const FormData = require('form-data');
-const form = new FormData();
+const request = require("request-promise");
 const cheerio = require("cheerio");
 
 /**
@@ -8,8 +6,6 @@ const cheerio = require("cheerio");
  * @param {string} url - URL of the video
  * @returns {string} raw video url
  */
- 
- // Change request-promise -> got + form-data
  
 async function getVideoUrl(url) {
 	if (typeof url !== "string") throw new Error("URL must be string");
@@ -37,14 +33,14 @@ async function getVideoUrl(url) {
 	if (url.protocol !== "https:" && url.protocol !== "http:") throw new Error("Invalid protocol");
 	if (url.protocol !== "http:" && url.protocol !== "https:") throw new Error("Invalid protocol");
 	
-	form.append('URLz', url.toString());
-	
 	let response;
 
 	try {
-		response = (await got.post("https://fdown.net/download.php", {
-		  body: form
-		})).body;
+		response = await got.post("https://fdown.net/download.php", {
+		  formData: {
+		    URLz: url.toString()
+		  }
+		});
 	} catch (e) {
 	  console.log(e);
 		//throw new Error("ERR: Error when trying to request or maybe link is invalid");
