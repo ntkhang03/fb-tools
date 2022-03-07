@@ -40,7 +40,7 @@ async function getVideoUrl(url) {
 		  uri: "https://fdown.net/download.php",
 		  method: "POST",
 		  formData: {
-		    URLz: url.toString()
+		    URLz: url.href
 		  }
 		});
 	} catch (e) {

@@ -33,7 +33,7 @@ async function findUid (url) {
   		uri: 'https://id.traodoisub.com/api.php',
   		method: "POST",
   		form: {
-  			link: url.toString()
+  			link: url.href
   		},
   		json: true
   	});
