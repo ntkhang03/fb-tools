@@ -16,17 +16,17 @@ async function getVideoUrl(url) {
 
 	// Validation URL
 	switch (url.hostname) {
-	case "www.facebook.com":
-	case "facebook.com":
-	case "m.facebook.com":
-	case "mbasic.facebook.com":
-	case "fb.watch":
-	case "fb.com":
-		next = true;
-		break;
-	default:
-		next = false;
-		break;
+  	case "www.facebook.com":
+  	case "facebook.com":
+  	case "m.facebook.com":
+  	case "mbasic.facebook.com":
+  	case "fb.watch":
+  	case "fb.com":
+  		next = true;
+  		break;
+  	default:
+  		next = false;
+  		break;
 	}
 
 	if (!next) throw new Error("Invalid URL!");
@@ -36,14 +36,15 @@ async function getVideoUrl(url) {
 	let response;
 
 	try {
-		response = await request.post("https://fdown.net/download.php", {
+		response = await request({
+		  uri: "https://fdown.net/download.php",
+		  method: "POST",
 		  formData: {
 		    URLz: url.toString()
 		  }
 		});
 	} catch (e) {
-	  console.log(e);
-		//throw new Error("ERR: Error when trying to request or maybe link is invalid");
+	  throw new Error("ERR: Error when trying to request or maybe link is invalid");
 	}
 	
 	let $;
@@ -51,8 +52,7 @@ async function getVideoUrl(url) {
 	try {
 		$ = cheerio.load(response);
 	} catch (e) {
-	  console.log(e);
-		//throw new Error("ERR: Error when trying to load response");
+	  throw new Error("ERR: Error when trying to load response");
 	}
     
 	let obj = {

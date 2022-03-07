@@ -1,5 +1,4 @@
 const request = require("request-promise");
-const cheerio = require("cheerio");
 
 // Find UID by Facebook profile URL
 
@@ -11,16 +10,16 @@ async function findUid (url) {
 
 	// Validation URL
 	switch (url.hostname) {
-	case "www.facebook.com":
-	case "facebook.com":
-	case "m.facebook.com":
-	case "mbasic.facebook.com":
-	case "fb.com":
-		next = true;
-		break;
-	default:
-		next = false;
-		break;
+  	case "www.facebook.com":
+  	case "facebook.com":
+  	case "m.facebook.com":
+  	case "mbasic.facebook.com":
+  	case "fb.com":
+  		next = true;
+  		break;
+  	default:
+  		next = false;
+  		break;
 	}
 
 	if (!next) throw new Error("Invalid URL!");
@@ -30,24 +29,19 @@ async function findUid (url) {
 	let response;
 	
 	try {
-	  response = await request.post("https://id.atpsoftware.vn", {
-		  formData: {
-		    linkCheckUid: url.toString()
-		  }
-		});
+	  response = await request({
+  		uri: 'https://id.traodoisub.com/api.php',
+  		method: "POST",
+  		form: {
+  			link: url.toString()
+  		},
+  		json: true
+  	});
 	} catch (e) {
 	  throw new Error("ERR: Error when trying to get response");
 	}
-	
-	let $;
-	
-	try {
-	  $ = cheerio.load(response.toString());
-	} catch (e) {
-	  throw new Error("ERR: Error when loading data");
-	}
-
-	return $("#menu1 > textarea.mt-4.w-75").text();
+	if (response.error) throw new Error("ERR: " + response.error);
+	return response.id;
 }
 
 module.exports = findUid;
